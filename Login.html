@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>]
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hogwarts Magical Background</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+	  color: #FFD700;
+	  
+    }
+    
+    body {
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
+      overflow: hidden;
+      font-family: 'Cinzel', serif;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .magical-element {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .lantern {
+      width: 30px;
+      height: 60px;
+      background: radial-gradient(circle, gold 0%, orange 70%, transparent 100%);
+      border-radius: 10px;
+      opacity: 0.8;
+      animation: float 8s linear infinite;
+      filter: drop-shadow(0 0 10px gold);
+    }
+
+    .wand {
+      width: 8px;
+      height: 60px;
+      background: linear-gradient(to bottom, #4b2e0d 0%, #c09f63 100%);
+      transform: rotate(45deg);
+      border-radius: 4px;
+      animation: wandFloat 12s linear infinite, rotate 4s linear infinite;
+    }
+
+    .sparkle {
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 2s ease-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    @keyframes wandFloat {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-10vh) rotate(180deg); }
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .house-crest {
+      width: 80px;
+      height: 80px;
+      background-size: contain;
+      animation: crestFloat 20s linear infinite;
+      opacity: 0.1;
+    }
+
+    @keyframes crestFloat {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-50vh) rotate(360deg); }
+    }
+
+    .spell-text {
+      font-size: 1.2em;
+      color: #d4af37;
+      text-shadow: 0 0 10px gold;
+      animation: spellFloat 6s linear infinite;
+    }
+
+    @keyframes spellFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      20% { opacity: 1; transform: translateY(-20px) scale(1); }
+      100% { opacity: 0; transform: translateY(-100px) scale(0.5); }
+    }
+	
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lora', serif;;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background: url("images/hero-bg.jpg") center/cover no-repeat;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 0 10px;
+}
+
+.navbar {
+    display: flex;
+    padding: 22px 0;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.navbar .hamburger-btn {
+    display: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.navbar .links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    align-items: center;
+}
+
+.navbar .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.navbar .links a {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.1s ease;
+}
+
+.navbar .links a:hover {
+    color: #FFD700;
+}
+
+.navbar .login-btn {
+    border: none;
+    outline: none;
+    background: #FFD700;;
+    color: #275360;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.navbar .login-btn:hover {
+    background: #ddd;
+}
+
+.form-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 720px;
+    background: #fff;
+    border: 2px solid #fff;
+    transform: translate(-50%, -70%);
+}
+
+.show-popup .form-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, opacity 0.1s;
+}
+
+.form-popup .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #878484;
+    cursor: pointer;
+}
+
+.blur-bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: 0.1s ease;
+}
+
+.show-popup .blur-bg-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.form-popup .form-box {
+    display: flex;
+}
+
+.form-box .form-details {
+    width: 100%;
+    color: #fff;
+    max-width: 330px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login .form-details {
+    padding: 0 40px;
+    background: url("image/backround.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.signup .form-details {
+    padding: 0 20px;
+    background: url("images/signup-img.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.form-box .form-content {
+    width: 100%;
+    padding: 35px;
+}
+
+.form-box h2 {
+    text-align: center;
+    margin-bottom: 29px;
+}
+
+form .input-field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-field input {
+    height: 100%;
+    width: 100%;
+    background: none;
+    outline: none;
+    font-size: 0.95rem;
+    padding: 0 15px;
+    border: 1px solid #717171;
+    border-radius: 3px;
+}
+
+.input-field input:focus {
+    border: 1px solid #00bcd4;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #4a4646;
+    pointer-events: none;
+    transition: 0.2s ease;
+}
+
+.input-field input:is(:focus, :valid) {
+    padding: 16px 15px 0;
+}
+
+.input-field input:is(:focus, :valid)~label {
+    transform: translateY(-120%);
+    color: #00bcd4;
+    font-size: 0.75rem;
+}
+
+.form-box a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.form-box a:hover {
+    text-decoration: underline;
+}
+
+form :where(.forgot-pass-link, .policy-text) {
+    display: inline-flex;
+    margin-top: 13px;
+    font-size: 0.95rem;
+}
+
+form button {
+    width: 100%;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 14px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 25px 0;
+    background: #00bcd4;
+    transition: 0.2s ease;
+}
+
+form button:hover {
+    background: #0097a7;
+}
+
+.form-content .bottom-link {
+    text-align: center;
+}
+
+.form-popup .signup,
+.form-popup.show-signup .login {
+    display: none;
+}
+
+.form-popup.show-signup .signup {
+    display: flex;
+}
+
+.signup .policy-text {
+    display: flex;
+    margin-top: 14px;
+    align-items: center;
+}
+
+.signup .policy-text input {
+    width: 14px;
+    height: 14px;
+    margin-right: 7px;
+}
+
+@media (max-width: 950px) {
+    .navbar :is(.hamburger-btn, .close-btn) {
+        display: block;
+    }
+
+    .navbar {
+        padding: 15px 0;
+		background: rgba(10, 14, 35, 0.9);
+		
+    }
+
+    .navbar .logo img {
+        display: none;
+    }
+
+    .navbar .logo h2 {
+        font-size: 1.4rem;
+    }
+
+    .navbar .links {
+        position: fixed;
+        top: 0;
+        z-index: 10;
+        left: -100%;
+        display: block;
+        height: 100vh;
+        width: 100%;
+        padding-top: 60px;
+        text-align: center;
+        background: #fff;
+        transition: 0.2s ease;
+    }
+
+    .navbar .links.show-menu {
+        left: 0;
+    }
+
+    .navbar .links a {
+        display: inline-flex;
+        margin: 20px 0;
+        font-size: 1.2rem;
+        color: #000;
+    }
+
+    .navbar .links a:hover {
+        color: #00BCD4;
+    }
+
+    .navbar .login-btn {
+        font-size: 0.9rem;
+        padding: 7px 10px;
+    }
+}
+
+@media (max-width: 760px) {
+    .form-popup {
+        width: 95%;
+    }
+
+    .form-box .form-details {
+        display: none;
+    }
+
+    .form-box .form-content {
+        padding: 30px 20px;
+    }
+}
+	   .logo {
+            font-size: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: ;
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.7);
+            transition: all 0.3s ease;
+        }
+	.nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+	   .logo {
+            font-size: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.7);
+            transition: all 0.3s ease;
+        }
+
+	/* Updated Logo Styles */
+    .logo i {
+        font-size: 2rem;
+        color: #FFD700; /* Bright gold color */
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        transition: all 0.3s ease;
+    }
+
+    .logo h2 {
+        color: #FFD700; /* Bright gold color */
+        font-size: 1.8rem;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        background: linear-gradient(to right, #FFD700, #D4AF37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .logo:hover i {
+        color: #FFD700;; /* Slightly darker gold on hover */
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+    }
+
+    .logo:hover h2 {
+        text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+    }
+	
+	.login .form-details {
+    background: url(image/backround.jpg) center/cover;
+}
+
+.signup .form-details {
+    background: url("https://source.unsplash.com/random/800x600?castle") center/cover;
+}
+
+.form-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(13, 27, 42, 0.95) !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.form-popup::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent 20%, 
+        rgba(255, 215, 0, 0.1) 25%, 
+        transparent 30%,
+        rgba(255, 215, 0, 0.1) 35%,
+        transparent 40%);
+    animation: magicalFlow 12s linear infinite;
+    z-index: -1;
+}
+
+@keyframes magicalFlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.form-content {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(5px);
+}
+
+/* Add particle container */
+.particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+.lantern-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.form-lantern {
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    background: radial-gradient(circle at 50% 20%, 
+        rgba(255,215,0,0.8) 0%, 
+        rgba(255,165,0,0.6) 30%, 
+        transparent 70%);
+    border-radius: 15px 15px 5px 5px;
+    animation: floatUp 15s linear infinite;
+    filter: drop-shadow(0 0 8px gold);
+    opacity: 0;
+}
+
+.form-lantern::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 40%;
+    width: 20%;
+    height: 10px;
+    background: #8B4513;
+    border-radius: 2px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(110%) rotateZ(-5deg);
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-50vh) rotateZ(5deg);
+        opacity: 0;
+    }
+}
+
+/* Add to existing .form-popup */
+.form-popup {
+    overflow: visible !important;
+}
+/* Add these styles to your existing CSS */
+.magical-back-btn {
+    position: absolute;
+    top:0px;
+    right: 20px;
+    text-decoration: none;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    transition: all 0.3s ease;
+}
+
+.portkey-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.fa-key {
+    color: #FFD700;
+    font-size: 1.8rem;
+    transform: rotate(-45deg);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.portkey-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, 
+        rgba(255,215,0,0.4) 0%, 
+        transparent 70%);
+    animation: keyGlow 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+.magical-sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.magical-sparkles::before,
+.magical-sparkles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #FFD700;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.portkey-label {
+    color: #FFD700;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(255,215,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+@keyframes keyGlow {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+}
+
+/* Hover effects */
+.magical-back-btn:hover .fa-key {
+    transform: rotate(0deg) scale(1.2);
+    filter: drop-shadow(0 0 8px gold);
+}
+
+.magical-back-btn:hover .portkey-label {
+    opacity: 1;
+}
+
+.magical-back-btn:hover .magical-sparkles::before {
+    animation: sparkleFly 1s ease-out;
+}
+
+.magical-back-btn:hover .magical-sparkles::after {
+    animation: sparkleFly 1s 0.2s ease-out;
+}
+
+@keyframes sparkleFly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(20px, -20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .magical-back-btn {
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .portkey-label {
+        display: none;
+    }
+}	
+	
+	
+  </style>
+</head>
+<body>
+
+<canvas id="backgroundCanvas"></canvas>
+
+ <header>
+        <nav class="navbar">
+            <span class="hamburger-btn material-symbols-rounded">menu</span>
+         <a href="index.html" class="logo">
+                <i class="fas fa-hat-wizard"></i>
+                <span>HOGWARTS</span>
+            </a>
+            <ul class="links">
+                <span class="close-btn material-symbols-rounded">close</span>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">ADMISSIONS</a></li>
+                <li><a href="#">ACADEMICS</a></li>
+                <li><a href="#">HOUSES</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+            <button class="login-btn">LOG IN</button>
+        </nav>
+    </header>
+
+    <div class="blur-bg-overlay"></div>
+    <div class="form-popup">
+	<a href="index.html" class="magical-back-btn">
+    <div class="portkey-container">
+        <i class="fas fa-key"></i>
+        <div class="magical-sparkles"></div>
+        <div class="portkey-glow"></div>
+    </div>
+    <span class="portkey-label">Secret Portkey</span>
+</a>
+	
+	<div class="lantern-container" id="formLanterns"></div>
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box login">
+            <div class="form-details">
+                <h2>WELCOME BACK</h2>
+                <p>Please log in using your personal information to stay connected with us.</p>
+            </div>
+            <div class="form-content">
+                <h2>LOGIN</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <a href="#" class="forgot-pass-link">Forgot password?</a>
+                    <button type="submit">Log In</button>
+                </form>
+                <div class="bottom-link">
+                    Don't have an account?
+                    <a href="#" id="signup-link">Signup</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-box signup">
+            <div class="form-details">
+                <h2>Create Account</h2>
+                <p>To become a part of our community, please sign up using your personal information.</p>
+            </div>
+            <div class="form-content">
+                <h2>SIGNUP</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Enter your email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Create password</label>
+                    </div>
+                    <div class="policy-text">
+                        <input type="checkbox" id="policy">
+                        <label for="policy">
+                            I agree the
+                            <a href="#" class="option">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <div class="bottom-link">
+                    Already have an account? 
+                    <a href="#" id="login-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+// Add this JavaScript for particle animation
+function createFormParticles() {
+    const canvas = document.querySelector('.particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const particles = [];
+    const colors = ['#FFD700', '#D4AF37', '#8B8000', '#FFFFFF'];
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.speedX = Math.random() * 3 - 1.5;
+            this.speedY = Math.random() * 3 - 1.5;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let particle of particles) {
+            particle.update();
+            particle.draw();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    });
+}
+
+// Initialize when form is shown
+document.querySelector('.login-btn').addEventListener('click', createFormParticles);
+
+const navbarMenu = document.querySelector(".navbar .links");
+const hamburgerBtn = document.querySelector(".hamburger-btn");
+const hideMenuBtn = navbarMenu.querySelector(".close-btn");
+const showPopupBtn = document.querySelector(".login-btn");
+const formPopup = document.querySelector(".form-popup");
+const hidePopupBtn = formPopup.querySelector(".close-btn");
+const signupLoginLink = formPopup.querySelectorAll(".bottom-link a");
+
+// Show mobile menu
+hamburgerBtn.addEventListener("click", () => {
+    navbarMenu.classList.toggle("show-menu");
+});
+
+// Hide mobile menu
+hideMenuBtn.addEventListener("click", () =>  hamburgerBtn.click());
+
+// Show login popup
+showPopupBtn.addEventListener("click", () => {
+    document.body.classList.toggle("show-popup");
+});
+
+// Hide login popup
+hidePopupBtn.addEventListener("click", () => showPopupBtn.click());
+
+// Show or hide signup form
+signupLoginLink.forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        formPopup.classList[link.id === 'signup-link' ? 'add' : 'remove']("show-signup");
+    });
+});
+
+  // Generate magical elements
+  const elements = {
+    lantern: 12,
+    wand: 10,
+    crest: 4,
+    sparkle: 30
+  };
+
+  Object.entries(elements).forEach(([type, count]) => {
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.className = `magical-element ${type}`;
+      
+      if(type === 'crest') {
+        el.classList.add('house-crest');
+        el.style.backgroundImage = `url('${getRandomCrest()}')`;
+      }
+      
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = random(8, 15) + "s";
+      el.style.animationDelay = Math.random() * 5 + "s";
+      document.body.appendChild(el);
+    }
+  });
+
+  function getRandomCrest() {
+    const crests = [
+      'gryffindor.png',
+      'slytherin.png',
+      'ravenclaw.png',
+      'hufflepuff.png'
+    ];
+    return crests[Math.floor(Math.random() * crests.length)];
+  }
+
+  // Enhanced Canvas Effects
+  const canvas = document.getElementById("backgroundCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.velocity = {
+        x: (Math.random() - 0.5) * 2,
+        y: (Math.random() - 0.5) * 2
+      };
+      this.alpha = 1;
+    }
+
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    update() {
+      this.x += this.velocity.x;
+      this.y += this.velocity.y;
+      this.alpha -= 0.005;
+    }
+  }
+
+  class Firework {
+    constructor(x, y, color) {
+      this.particles = [];
+      this.color = color;
+      for (let i = 0; i < 50; i++) {
+        this.particles.push(new Particle(x, y, this.color));
+      }
+    }
+
+    update() {
+      this.particles.forEach((particle, index) => {
+        if(particle.alpha <= 0) {
+          this.particles.splice(index, 1);
+        } else {
+          particle.update();
+        }
+      });
+    }
+
+    draw() {
+      this.particles.forEach(particle => particle.draw());
+    }
+  }
+
+  const fireworks = [];
+  const houseColors = ["#740001", "#1a472a", "#0e1a40", "#ecb939"];
+
+  function createFirework() {
+    const x = random(0, canvas.width);
+    const y = random(0, canvas.height/2);
+    const color = houseColors[Math.floor(Math.random() * houseColors.length)];
+    fireworks.push(new Firework(x, y, color));
+
+    // Add spell text
+    const spell = document.createElement("div");
+    spell.className = "spell-text";
+    spell.textContent = getRandomSpell();
+    spell.style.left = x + "px";
+    spell.style.top = y + "px";
+    document.body.appendChild(spell);
+    
+    setTimeout(() => spell.remove(), 6000);
+  }
+
+  function getRandomSpell() {
+    const spells = [
+      "Lumos!", "Accio!", "Wingardium Leviosa!", 
+      "Expecto Patronum!", "Alohomora!", "Expelliarmus!"
+    ];
+    return spells[Math.floor(Math.random() * spells.length)];
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    fireworks.forEach((firework, index) => {
+      if(firework.particles.length === 0) {
+        fireworks.splice(index, 1);
+      } else {
+        firework.update();
+        firework.draw();
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  // Init
+  setInterval(createFirework, 1500);
+  animate();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Helper functions
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  // Interactive elements
+  document.addEventListener('mousemove', (e) => {
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.style.left = e.clientX + "px";
+    sparkle.style.top = e.clientY + "px";
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 2000);
+  });
+  function createFormLanterns() {
+    const container = document.getElementById('formLanterns');
+    const lanternCount = 5;
+    
+    for(let i = 0; i < lanternCount; i++) {
+        const lantern = document.createElement('div');
+        lantern.className = 'form-lantern';
+        
+        // Random position and animation properties
+        lantern.style.left = `${Math.random() * 90 + 5}%`;
+        lantern.style.width = `${Math.random() * 20 + 15}px`;
+        lantern.style.height = `${Math.random() * 40 + 30}px`;
+        lantern.style.animationDelay = `${Math.random() * 5}s`;
+        lantern.style.animationDuration = `${Math.random() * 5 + 10}s`;
+        
+        // Create flicker effect
+        lantern.style.animation = `
+            floatUp ${Math.random() * 5 + 10}s linear infinite,
+            flicker ${Math.random() * 2 + 1}s ease-in-out infinite
+        `;
+        
+        container.appendChild(lantern);
+    }
+}
+
+// Add flicker animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes flicker {
+    0%, 100% { opacity: 0.8; }
+    25% { opacity: 0.6; }
+    50% { opacity: 0.9; }
+    75% { opacity: 0.7; }
+}
+`;
+document.head.appendChild(style);
+
+// Initialize lanterns when form opens
+document.querySelector('.login-btn').addEventListener('click', () => {
+    const container = document.getElementById('formLanterns');
+    container.innerHTML = ''; // Clear existing lanterns
+    createFormLanterns();
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    const container = document.getElementById('formLanterns');
+    const lanterns = container.querySelectorAll('.form-lantern');
+    lanterns.forEach(lantern => {
+        lantern.style.left = `${Math.random() * 90 + 5}%`;
+    });
+});
+  
+</script>
+</body>
+</html>

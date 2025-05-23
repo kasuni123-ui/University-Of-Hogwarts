@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Ceremony Orientation | Hogwarts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0a0e23;
+            --secondary-color: #2a623d;
+            --gold: #d4af37;
+            --silver: #c0c0c0;
+            --gryffindor-red: #740001;
+            --ravenclaw-blue: #0e1a40;
+            --hufflepuff-yellow: #ecb939;
+            --slytherin-green: #1a472a;
+            --text-light: #f8f8f8;
+            --parchment: #f5e7d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Lora', serif;
+            padding-top: 70px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Magical Sky Background */
+        .magic-sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 5s) infinite ease-in-out;
+            opacity: var(--opacity, 0.7);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+            border-radius: 50%;
+            animation: shoot var(--duration, 3s) linear infinite;
+            transform: rotate(var(--angle, -45deg));
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100vw) translateY(100vh) rotate(-45deg); opacity: 0; }
+        }
+
+        /* Floating Magical Elements */
+        .floating-magic {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+            animation: floatMagic 15s infinite linear;
+        }
+
+        @keyframes floatMagic {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background: rgba(10, 14, 35, 0.9);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            top: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* Main Content Styles */
+        .content-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cinzel', serif;
+            margin: 0 0 1rem 0;
+            color: var(--gold);
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .magic-text {
+            text-align: center;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .magic-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            border-radius: 3px;
+        }
+
+        /* Sorting Pathway Card */
+        .sorting-pathway {
+            position: relative;
+            padding: 3rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            margin: 3rem 0;
+            overflow: hidden;
+            background: rgba(10, 14, 35, 0.7);
+            box-shadow: 0 0 30px rgba(42, 98, 61, 0.2);
+            backdrop-filter: blur(5px);
+            transition: all 0.5s ease;
+        }
+
+        .sorting-pathway:hover {
+            box-shadow: 0 0 40px rgba(42, 98, 61, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .sorting-pathway::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(192, 57, 43, .15) 50%, transparent 100%);
+            animation: flow 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(-100%) }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Timeline Styles */
+        .interactive-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .timeline-node {
+            background: rgba(255, 255, 255, .08);
+            padding: 1.8rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .timeline-node:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(42, 98, 61, .3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .timeline-node:hover::before {
+            transform: scale(1);
+        }
+
+        .timeline-node i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node:hover i {
+            transform: scale(1.2);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+        }
+
+        .timeline-node h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .timeline-node p {
+            color: var(--text-light);
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Popup Styles */
+        .node-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 14, 35, 0.95);
+            border: 2px solid var(--gold);
+            padding: 2.5rem;
+            z-index: 6000;
+            width: 85%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .close-popup:hover {
+            transform: rotate(90deg) scale(1.2);
+            color: #f1c40f;
+        }
+
+        .node-popup h2 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .node-popup h4 {
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.3rem;
+        }
+
+        .node-popup ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .node-popup li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            list-style-type: none;
+        }
+
+        .node-popup li::before {
+            content: '✦';
+            color: var(--gold);
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        .node-popup p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.8rem;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(42, 98, 61, 0.3);
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover td {
+            background: rgba(42, 98, 61, 0.2);
+        }
+
+        /* Blockquote Styles */
+        blockquote {
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            font-style: italic;
+            margin: 2rem 0;
+            color: var(--parchment);
+            position: relative;
+            font-size: 1.1rem;
+            background: rgba(10, 14, 35, 0.5);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        blockquote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 5px;
+            font-size: 4rem;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        /* Sorting Hat Commentary */
+        .hat-commentary {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(90, 42, 15, 0.9);
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            max-width: 320px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-style: italic;
+            color: var(--parchment);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--gold);
+            z-index: 100;
+            animation: floatHat 5s infinite ease-in-out;
+        }
+
+        @keyframes floatHat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hat-commentary:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: rgba(90, 42, 15, 1);
+        }
+
+        .hat-commentary::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid rgba(90, 42, 15, 0.9);
+        }
+
+        .hat-commentary:hover::before {
+            border-bottom-color: rgba(90, 42, 15, 1);
+        }
+
+        /* Footer Styles */
+        .hogwarts-footer {
+            position: relative;
+            background: linear-gradient(to bottom, #0a0e23 0%, #1a1a2e 100%);
+            color: #f0f0f0;
+            padding: 3rem 0 0;
+            overflow: hidden;
+            border-top: 3px solid var(--gold);
+            font-family: 'Lora', serif;
+            margin-top: 3rem;
+        }
+
+        .footer-border {
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+        }
+
+        .border-spell {
+            width: 30%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: spellGlow 3s infinite alternate;
+            opacity: 0.7;
+        }
+
+        @keyframes spellGlow {
+            0% { opacity: 0.3; box-shadow: 0 0 5px var(--gold); }
+            100% { opacity: 0.8; box-shadow: 0 0 15px var(--gold); }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column {
+            padding: 1rem;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            width: 1.2rem;
+            text-align: center;
+        }
+
+        .spell-list {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .spell-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .spell-item:hover {
+            background: rgba(241, 196, 15, 0.1);
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
+        }
+
+        .spell-name {
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .spell-effect {
+            text-align: right;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .house-points {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .house-score {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .house-crest {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .gryffindor-score .house-crest { color: #ae0001; }
+        .slytherin-score .house-crest { color: #2a623d; }
+        .ravenclaw-score .house-crest { color: #222f5b; }
+        .hufflepuff-score .house-crest { color: #ecb939; }
+
+        .point-bar {
+            height: 8px;
+            border-radius: 4px;
+            flex-grow: 1;
+            transition: width 1s ease;
+        }
+
+        .gryffindor-score .point-bar { background: linear-gradient(90deg, #740001, #ae0001); }
+        .slytherin-score .point-bar { background: linear-gradient(90deg, #1a472a, #2a623d); }
+        .ravenclaw-score .point-bar { background: linear-gradient(90deg, #0e1a40, #222f5b); }
+        .hufflepuff-score .point-bar { background: linear-gradient(90deg, #ecb939, #f0c75e); }
+
+        .points {
+            width: 3rem;
+            text-align: right;
+            font-family: 'Cinzel', serif;
+        }
+
+        .points-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(241, 196, 15, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .points-button:hover {
+            background: rgba(241, 196, 15, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.2);
+        }
+
+        .owl-newsletter {
+            margin-bottom: 2rem;
+        }
+
+        .owl-newsletter input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .owl-newsletter input:focus {
+            outline: none;
+            border-color: #f1c40f;
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
+        }
+
+        .owl-newsletter button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--gold);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .owl-newsletter button:hover {
+            background: #f8d776;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3);
+        }
+
+        .social-spells h4 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-spell {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-spell:hover {
+            background: var(--gold);
+            color: #1a1a1a;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3);
+        }
+
+        .footer-map {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            height: 200px;
+            background: url('https://i.imgur.com/JqYeZvn.jpg') center/cover;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .hogwarts-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .map-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .marker:hover {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .marker::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .marker:hover::after {
+            opacity: 1;
+        }
+
+        .great-hall { top: 30%; left: 50%; }
+        .library { top: 45%; left: 35%; }
+        .quidditch { top: 70%; left: 60%; }
+        .forbidden-forest { top: 80%; left: 25%; }
+
+        .location-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .location-info h3 {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .location-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-legal {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-links a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .legal-links a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .copyright p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-potion,
+        .floating-book,
+        .floating-wand {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+            font-size: 3rem;
+            color: var(--gold);
+        }
+
+        .floating-potion {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-book {
+            top: 30%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .floating-wand {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        /* Magical Sparkles */
+        .magic-sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(241, 196, 15, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: sparkleFade 2s ease-out forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+                gap: 1rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .content-container {
+                padding: 1.5rem;
+            }
+
+            .sorting-pathway {
+                padding: 1.5rem;
+            }
+
+            .interactive-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-map {
+                flex-direction: column;
+            }
+
+            .map-container {
+                min-width: 100%;
+            }
+
+            .hat-commentary {
+                right: 15px;
+                bottom: 15px;
+                max-width: 250px;
+            }
+        }
+
+        /* House Colors Animation */
+        .house-colors {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            opacity: 0.1;
+            background: linear-gradient(45deg, 
+                var(--gryffindor-red) 0%, 
+                var(--ravenclaw-blue) 25%, 
+                var(--hufflepuff-yellow) 50%, 
+                var(--slytherin-green) 75%);
+            background-size: 400% 400%;
+            animation: houseColors 30s ease infinite;
+        }
+
+        @keyframes houseColors {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Candles */
+        .floating-candle {
+            position: fixed;
+            width: 20px;
+            height: 40px;
+            background: linear-gradient(to bottom, #f5d742 0%, #f5a742 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 20px #f5a742;
+            z-index: -1;
+            animation: floatCandle 15s infinite ease-in-out;
+        }
+
+        .floating-candle::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 8px;
+            width: 4px;
+            height: 10px;
+            background: #f5f5f5;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ffffff;
+            animation: flicker 3s infinite ease-in-out;
+        }
+
+        @keyframes floatCandle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(5deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; height: 10px; }
+            50% { opacity: 0.7; height: 5px; }
+        }
+
+        /* Magical Particles */
+        .magic-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+            animation: particleFloat 5s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+            50% { transform: translate(20px, -20px); opacity: 0.3; }
+        }
+		    <!-- Previous head content remains the same -->
+    <style>
+        /* Add these new styles */
+        .magic-card {
+            background: rgba(10, 14, 35, 0.9);
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: cardEntrance 0.6s ease-out forwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes cardEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .magic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(42, 98, 61, 0.4);
+        }
+
+        .magic-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(212, 175, 55, 0.1) 0%, 
+                rgba(42, 98, 61, 0.2) 50%, 
+                transparent 100%);
+            animation: flow 20s linear infinite;
+            z-index: -1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background: rgba(42, 98, 61, 0.2);
+            transform: translateX(10px);
+        }
+
+        .potion-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .snape-quote {
+            border: 2px solid var(--gryffindor-red);
+            background: linear-gradient(45deg, rgba(116, 0, 1, 0.1), transparent);
+            position: relative;
+        }
+
+        .snape-quote::after {
+            content: "⚗️";
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+
+        /* Add animation delays for staggered entrance */
+        .magic-card:nth-child(1) { animation-delay: 0.2s; }
+        .magic-card:nth-child(2) { animation-delay: 0.4s; }
+        .magic-card:nth-child(3) { animation-delay: 0.6s; }
+        .magic-card:nth-child(4) { animation-delay: 0.8s; }
+		
+		/* Animated Cards Styles */
+    .animated-timeline {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .timeline-card {
+        background: linear-gradient(45deg, rgba(42, 98, 61, 0.2), rgba(10, 14, 35, 0.8));
+        border: 2px solid var(--secondary-color);
+        border-radius: 15px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: cardRise 0.6s ease-out forwards;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
+
+    @keyframes cardRise {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .timeline-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(42, 98, 61, 0.4);
+    }
+
+    .timeline-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .timeline-header i {
+        font-size: 2rem;
+        color: var(--gold);
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
+
+    .magic-list {
+        list-style: none;
+        padding-left: 1.5rem;
+    }
+
+    .magic-list li {
+        position: relative;
+        margin-bottom: 0.8rem;
+    }
+
+    .magic-list li::before {
+        content: '✦';
+        color: var(--gold);
+        position: absolute;
+        left: -1.5rem;
+    }
+
+    .academic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .academic-card {
+        background: rgba(10, 14, 35, 0.9);
+        border: 2px solid var(--secondary-color);
+        border-radius: 15px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        animation: cardEntrance 0.6s ease-out forwards;
+    }
+
+    .card-title {
+        color: var(--gold);
+        font-family: 'Cinzel', serif;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .program-details {
+        display: grid;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
+
+    .magic-divider {
+        height: 2px;
+        background: linear-gradient(to right, transparent, var(--gold), transparent);
+        margin: 1.5rem 0;
+    }
+
+    .curriculum-card {
+        grid-column: span 2;
+    }
+
+    .card-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tab {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .tab.active {
+        background: var(--secondary-color);
+        color: var(--gold);
+    }
+
+    .curriculum-list {
+        columns: 2;
+        gap: 2rem;
+    }
+
+    .assessment-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .grade-meter {
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .grade-progress {
+        width: 85%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--secondary-color), var(--gold));
+        animation: gradeFill 1.5s ease-out;
+    }
+
+    @keyframes gradeFill {
+        from { width: 0; }
+    }
+
+    .career-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .career-path {
+        text-align: center;
+        padding: 1rem;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .career-path:hover {
+        transform: translateY(-5px);
+        background: rgba(42, 98, 61, 0.2);
+    }
+
+    .snape-card {
+        grid-column: span 2;
+        background: linear-gradient(45deg, rgba(116, 0, 1, 0.1), rgba(10, 14, 35, 0.8));
+        border-color: var(--gryffindor-red);
+    }
+
+    .snape-quote {
+        font-style: italic;
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .snape-quote::before {
+        content: '"';
+        position: absolute;
+        left: 0;
+        top: -1rem;
+        font-size: 4rem;
+        color: rgba(212, 175, 55, 0.3);
+    }
+		
+    </style>
+</head>
+<body>
+
+<!-- Magical Background Elements -->
+    <div class="magic-sky" id="magicSky"></div>
+    <div class="house-colors"></div>
+
+       <!-- Floating Magical Elements -->
+    <div class="floating-magic" style="top:20%; left:10%; font-size:3rem;"><i class="fas fa-hat-wizard"></i></div>
+    <div class="floating-magic" style="top:70%; left:80%; font-size:2.5rem;"><i class="fas fa-scroll"></i></div>
+    <div class="floating-magic" style="top:40%; left:85%; font-size:4rem;"><i class="fas fa-wand-sparkles"></i></div>
+    <div class="floating-magic" style="top:60%; left:15%; font-size:3.2rem;"><i class="fas fa-book-open"></i></div>
+    <div class="floating-magic" style="top:25%; left:75%; font-size:2.8rem;"><i class="fas fa-flask"></i></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hat-wizard"></i>
+                <span>Hogwarts</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">Home</a></li>
+                <li><a href="index.html#admissions">Admissions</a></li>
+                <li><a href="index.html#academics">Academics</a></li>
+                <li><a href="index.html#houses">Houses</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+   <section class="section">
+    <div class="content-container">
+        <div class="potion-pathway">
+            <h2 class="magic-text">Potions Mastery Program</h2>
+
+            <!-- Animated Program Timeline -->
+            <div class="animated-timeline">
+                <div class="timeline-card" data-year="1">
+                    <div class="timeline-header">
+                        <i class="fas fa-mortar-pestle"></i>
+                        <h3>Year 1: Foundations</h3>
+                    </div>
+                    <div class="timeline-content">
+                        <ul class="magic-list">
+                            <li>Molecular-level ingredient preparation</li>
+                            <li>Non-verbal brewing techniques</li>
+                            <li>Dark arts antidote formulation</li>
+                        </ul>
+                        <div class="timeline-sparkle"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-card" data-year="2">
+                    <div class="timeline-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Year 2: Innovation</h3>
+                    </div>
+                    <div class="timeline-content">
+                        <ul class="magic-list">
+                            <li>Experimental potion modification</li>
+                            <li>Mass production techniques</li>
+                            <li>Sentient potion development</li>
+                        </ul>
+                        <div class="timeline-sparkle"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-card" data-year="3">
+                    <div class="timeline-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>Year 3: Mastery</h3>
+                    </div>
+                    <div class="timeline-content">
+                        <ul class="magic-list">
+                            <li>Medical potioneering specialization</li>
+                            <li>Wartime applications</li>
+                            <li>Alchemical transmutation</li>
+                        </ul>
+                        <div class="timeline-sparkle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Academic Plan Cards -->
+            <div class="academic-grid">
+                <!-- Program Overview Card -->
+                <div class="academic-card program-overview">
+                    <div class="card-glows"></div>
+                    <h3 class="card-title">
+                        <i class="fas fa-scroll"></i>
+                        Program Overview
+                    </h3>
+                    <div class="card-content">
+                        <p class="card-subtitle">"Bottle Fame, Brew Glory"</p>
+                        <div class="program-details">
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>3 Years (N.E.W.T. Level)</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Director: Severus Snape</span>
+                            </div>
+                        </div>
+                        <div class="magic-divider"></div>
+                        <p class="card-description">Advanced theoretical knowledge meets dangerous practical applications in this elite postgraduate program.</p>
+                    </div>
+                </div>
+
+                <!-- Curriculum Card -->
+                <div class="academic-card curriculum-card">
+                    <div class="card-tabs">
+                        <button class="tab active" data-tab="year1">Year 1</button>
+                        <button class="tab" data-tab="year2">Year 2</button>
+                        <button class="tab" data-tab="year3">Year 3</button>
+                    </div>
+                    <div class="tab-content active" id="year1">
+                        <h4><i class="fas fa-mortar-pestle"></i> Advanced Brewing</h4>
+                        <ul class="curriculum-list">
+                            <li>Precision ingredient preparation</li>
+                            <li>Non-verbal brewing synchronization</li>
+                            <li>Wolfsbane refinement techniques</li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="year2">
+                        <h4><i class="fas fa-flask"></i> Experimental Potioneering</h4>
+                        <ul class="curriculum-list">
+                            <li>Snape's Adaptation Principles</li>
+                            <li>Large-scale stabilization charms</li>
+                            <li>Sentient potion development</li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="year3">
+                        <h4><i class="fas fa-crown"></i> Mastery Tracks</h4>
+                        <ul class="curriculum-list">
+                            <li>Medical pandemic response</li>
+                            <li>Shield-penetrating solutions</li>
+                            <li>Philosopher's Stone derivatives</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Assessment Card -->
+                <div class="academic-card assessment-card">
+                    <div class="grade-visualization">
+                        <div class="grade-meter" data-grade="O">
+                            <div class="grade-progress"></div>
+                            <div class="grade-label">Outstanding</div>
+                        </div>
+                        <div class="assessment-details">
+                            <h4><i class="fas fa-clipboard-check"></i> Evaluation Criteria</h4>
+                            <ul class="assessment-list">
+                                <li>Weekly brewing trials</li>
+                                <li>Termly written exams</li>
+                                <li>Safety compliance checks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Pathways Card -->
+                <div class="academic-card career-card">
+                    <h3 class="card-title">
+                        <i class="fas fa-briefcase"></i>
+                        Career Trajectories
+                    </h3>
+                    <div class="career-grid">
+                        <div class="career-path">
+                            <i class="fas fa-hat-wizard"></i>
+                            <h5>Hogwarts Potions Master</h5>
+                        </div>
+                        <div class="career-path">
+                            <i class="fas fa-shield-alt"></i>
+                            <h5>Auror Department Consultant</h5>
+                        </div>
+                        <div class="career-path">
+                            <i class="fas fa-dragon"></i>
+                            <h5>Gringotts Researcher</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snape Quote Card -->
+                <div class="academic-card snape-card">
+                    <div class="snape-portrait">
+                        <div class="frame"></div>
+                    </div>
+                    <blockquote class="snape-quote">
+                        "Five points will be deducted for each poorly minced root."
+                        <cite>- Prof. Severus Snape</cite>
+                    </blockquote>
+                    <div class="potion-bubbles"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Node Popup -->
+    <div id="nodePopup" class="node-popup">
+        <span class="close-popup" onclick="closePopup()">&times;</span>
+        <div id="popupContent"></div>
+    </div>
+
+    <!-- Tooltip Container -->
+    <div id="ingredientTooltip" class="ingredient-tooltip"></div>
+<footer class="hogwarts-footer">
+    <!-- Magical Border -->
+    <div class="footer-border">
+        <div class="border-spell"></div>
+        <div class="border-spell"></div>
+        <div class="border-spell"></div>
+    </div>
+
+    <!-- Main Footer Content -->
+    <div class="footer-content">
+        <!-- Footer Columns -->
+        <div class="footer-columns">
+            <!-- Quick Links -->
+            <div class="footer-column">
+                <h3 class="footer-title">Magical Navigation <i class="fas fa-hat-wizard"></i></h3>
+                <ul class="footer-links">
+                    <li><a href="#about"><i class="fas fa-scroll"></i> School History</a></li>
+                    <li><a href="#admissions"><i class="fas fa-quill"></i> Admissions</a></li>
+                    <li><a href="#academics"><i class="fas fa-book-spells"></i> Courses</a></li>
+                    <li><a href="#houses"><i class="fas fa-flag"></i> Houses</a></li>
+                    <li><a href="#contact"><i class="fas fa-owl"></i> Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Important Spells -->
+            <div class="footer-column">
+                <h3 class="footer-title">Essential Spells <i class="fas fa-wand-sparkles"></i></h3>
+                <div class="spell-list">
+                    <div class="spell-item" onclick="castSpell('Lumos')">
+                        <span class="spell-name">Lumos</span>
+                        <span class="spell-effect">Light Wand</span>
+                    </div>
+                    <div class="spell-item" onclick="castSpell('Alohomora')">
+                        <span class="spell-name">Alohomora</span>
+                        <span class="spell-effect">Unlock Doors</span>
+                    </div>
+                    <div class="spell-item" onclick="castSpell('Accio')">
+                        <span class="spell-name">Accio</span>
+                        <span class="spell-effect">Summon Objects</span>
+                    </div>
+                    <div class="spell-item" onclick="castSpell('Expecto Patronum')">
+                        <span class="spell-name">Expecto Patronum</span>
+                        <span class="spell-effect">Dementor Defense</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- House Points Counter -->
+            <div class="footer-column">
+                <h3 class="footer-title">House Cup Standings <i class="fas fa-trophy"></i></h3>
+                <div class="house-points">
+                    <div class="house-score gryffindor-score">
+                        <div class="house-crest"><i class="fas fa-lion"></i></div>
+                        <div class="point-bar" style="width: 65%"></div>
+                        <span class="points">320</span>
+                    </div>
+                    <div class="house-score slytherin-score">
+                        <div class="house-crest"><i class="fas fa-snake"></i></div>
+                        <div class="point-bar" style="width: 55%"></div>
+                        <span class="points">280</span>
+                    </div>
+                    <div class="house-score ravenclaw-score">
+                        <div class="house-crest"><i class="fas fa-eagle"></i></div>
+                        <div class="point-bar" style="width: 45%"></div>
+                        <span class="points">240</span>
+                    </div>
+                    <div class="house-score hufflepuff-score">
+                        <div class="house-crest"><i class="fas fa-badger"></i></div>
+                        <div class="point-bar" style="width: 35%"></div>
+                        <span class="points">190</span>
+                    </div>
+                </div>
+                <button class="points-button" onclick="awardPoints()">Award Random Points</button>
+            </div>
+
+            <!-- Newsletter & Social -->
+            <div class="footer-column">
+                <h3 class="footer-title">Daily Prophet Updates <i class="fas fa-newspaper"></i></h3>
+                <form class="owl-newsletter">
+                    <input type="email" placeholder="Your Owl Address" required>
+                    <button type="submit">Subscribe <i class="fas fa-feather-alt"></i></button>
+                </form>
+                
+                <div class="social-spells">
+                    <h4>Follow Our Patronus</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-spell" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-spell" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-spell" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-spell" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map & Info -->
+        <div class="footer-map">
+            <div class="map-container">
+                <div class="hogwarts-map"></div>
+                <div class="map-markers">
+                    <div class="marker great-hall" data-tooltip="Great Hall"></div>
+                    <div class="marker library" data-tooltip="Library"></div>
+                    <div class="marker quidditch" data-tooltip="Quidditch Pitch"></div>
+                    <div class="marker forbidden-forest" data-tooltip="Forbidden Forest"></div>
+                </div>
+            </div>
+            <div class="location-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Hogwarts Location</h3>
+                <p>Hogwarts Castle, Highlands, Scotland</p>
+                <p>Undiscoverable to Muggles</p>
+                <p>Floo Network: HOGWARTS01</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright & Legal -->
+    <div class="footer-legal">
+        <div class="legal-links">
+            <a href="#">Unbreakable Vow</a>
+            <a href="#">Magical Creatures Policy</a>
+            <a href="#">Potion Safety</a>
+            <a href="#">Time-Turner Usage</a>
+        </div>
+        <div class="copyright">
+            <p>© 1991-2023 Hogwarts University of Witchcraft & Wizardry</p>
+            <p>Registered with the Ministry of Magic (M.O.M. License: 0001)</p>
+        </div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-potion"></div>
+        <div class="floating-book"></div>
+        <div class="floating-wand"></div>
+    </div>
+</footer>
+
+
+
+   <script>
+    // Create magical sky elements
+    function createStars() {
+        const sky = document.getElementById('magicSky');
+        const starCount = 100;
+        const shootingStarCount = 5;
+        
+        // Create stars
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            sky.appendChild(star);
+        }
+        
+        // Create shooting stars
+        for (let i = 0; i < shootingStarCount; i++) {
+            const shootingStar = document.createElement('div');
+            shootingStar.classList.add('shooting-star');
+            shootingStar.style.left = `${Math.random() * 100}%`;
+            shootingStar.style.top = `${Math.random() * 100}%`;
+            shootingStar.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            shootingStar.style.animationDelay = `${Math.random() * 10}s`;
+            sky.appendChild(shootingStar);
+        }
+    }
+    
+    // Create floating candles
+    function createCandles() {
+        const candleCount = 15;
+        for (let i = 0; i < candleCount; i++) {
+            const candle = document.createElement('div');
+            candle.classList.add('floating-candle');
+            candle.style.left = `${Math.random() * 100}%`;
+            candle.style.top = `${Math.random() * 100}%`;
+            candle.style.animationDelay = `${Math.random() * 5}s`;
+            document.body.appendChild(candle);
+        }
+    }
+    
+    // Create magical particles
+    function createParticles() {
+        const particleCount = 30;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('magic-particle');
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            document.body.appendChild(particle);
+        }
+    }
+    
+    // Popup functionality
+    function openPopup(id) {
+        document.getElementById(id).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closePopup() {
+        const popups = document.querySelectorAll('.node-popup');
+        popups.forEach(popup => {
+            popup.style.display = 'none';
+        });
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Close popup when clicking outside content
+    window.onclick = function(event) {
+        const popups = document.querySelectorAll('.node-popup');
+        popups.forEach(popup => {
+            if (event.target == popup) {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+    
+    // Sorting Hat commentary
+    const hatQuotes = [
+        "Oh, you may not think I'm pretty, but don't judge on what you see...",
+        "I've never yet been wrong, I'll sort you just as well...",
+        "Gryffindor's bold, where dwell the brave at heart...",
+        "In wise old Ravenclaw, if you've a ready mind...",
+        "Hufflepuff will teach you just and true...",
+        "Or perhaps in Slytherin you'll make your real friends..."
+    ];
+    
+    function changeHatCommentary() {
+        const hat = document.querySelector('.hat-commentary');
+        const randomIndex = Math.floor(Math.random() * hatQuotes.length);
+        hat.textContent = `"${hatQuotes[randomIndex]}"`;
+        
+        // Create magical sparkles
+        createSparkles(hat);
+    }
+    
+    // Create magical sparkles effect
+    function createSparkles(element) {
+        const rect = element.getBoundingClientRect();
+        const sparkleCount = 10;
+        
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('magic-sparkle');
+            sparkle.style.left = `${rect.left + Math.random() * rect.width}px`;
+            sparkle.style.top = `${rect.top + Math.random() * rect.height}px`;
+            sparkle.style.animationDelay = `${i * 0.1}s`;
+            document.body.appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+    }
+    
+    // Mobile menu toggle
+    document.querySelector('.hamburger').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+    // Initialize magical elements
+    window.onload = function() {
+        createStars();
+        createCandles();
+        createParticles();
+        
+        // Change hat commentary every 15 seconds
+        setInterval(changeHatCommentary, 15000);
+    };
+	
+	// Card animation trigger
+    const cards = document.querySelectorAll('.academic-card, .timeline-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => {
+        card.style.animation = 'cardEntrance 0.6s ease-out forwards';
+        card.style.animationPlayState = 'paused';
+        observer.observe(card);
+    });
+
+    // Tab functionality
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            this.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // Hover effects
+    document.querySelectorAll('.career-path').forEach(path => {
+        path.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
+        });
+        
+        path.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+</script>
+</body>
+</html>
+
+
